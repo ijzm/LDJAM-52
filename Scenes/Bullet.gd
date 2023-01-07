@@ -13,7 +13,6 @@ func set_direction(dir):
 
 
 func _on_KillTimer_timeout():
-	print("ded")
 	queue_free()
 
 

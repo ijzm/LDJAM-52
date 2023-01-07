@@ -1,20 +1,46 @@
 extends RigidBody2D
 
-export (int) var FORCE_AMOUNT = 1000
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+enum ENEMY_STATE {
+	ATTACKING,
+	RAGDOLL
+}
 
-# Called when the node enters the scene tree for the first time.
+export (int) var FORCE_AMOUNT = 200
+export (int) var SPEED = 50
+
+var Player
+var State = ENEMY_STATE.ATTACKING
+
+
 func _ready():
-	pass # Replace with function body.
+	Player = get_node("/root/Game/Player")
+
+func _integrate_forces(state):
+	if Player == null:
+		print("Couldn't find player")
+		return
+	
+	match State:
+		ENEMY_STATE.ATTACKING:
+			state.linear_velocity = (Player.position - position).normalized() * SPEED
+
+		ENEMY_STATE.RAGDOLL:
+			pass
+		
+		_:
+			print("ERROR STATE")
 
 
-func handle_hit(body, direction):
-	print(body.position)
+func handle_hit(_body, direction):
 	#var dir = (position - body.position).normalized()
+	
+	State = ENEMY_STATE.RAGDOLL
 	apply_impulse(position, direction * FORCE_AMOUNT)
+	$StunnedTimer.start()
 
 func handle_compactor():
 	queue_free()
+
+func _on_StunnedTimer_timeout():
+	State = ENEMY_STATE.ATTACKING

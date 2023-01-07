@@ -21,6 +21,5 @@ func _ready():
 func _on_TSC_Jingle_finished():
 	get_tree().get_root().add_child(game)
 	hide()
-	print("xd")
 
 	
