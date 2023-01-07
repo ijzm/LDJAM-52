@@ -10,10 +10,13 @@ export (PackedScene) var Bullet
 
 var motion = Vector2()
 
+var Score = 0
+
+var Ui
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	Ui = get_node("/root/Game/GameUI")
 
 func Move():
 	motion.x = clamp(motion.x, -MAXSPEED, MAXSPEED)
@@ -56,12 +59,6 @@ func Animation():
 	elif Input.is_action_pressed("right"):
 		$AnimationPlayer.play("move_right")
 		
-			
-
-
-
-
-
 func _physics_process(_delta):
 	Move()
 	Animation()
@@ -78,3 +75,7 @@ func _physics_process(_delta):
 		bullet.global_position = position + dir * 30
 		add_child(bullet)
 		bullet.rotation = dir.angle()
+
+func add_score(amount):
+	Score += amount
+	Ui.update_ui()
