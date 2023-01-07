@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/TSC.mp3-ef6aa9a9ade9f7f9ef66f90cac160596.mp3str"
+
+[deps]
+
+source_file="res://assets/TSC/TSC.mp3"
+dest_files=[ "res://.import/TSC.mp3-ef6aa9a9ade9f7f9ef66f90cac160596.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
