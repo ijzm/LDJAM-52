@@ -63,7 +63,7 @@ func _physics_process(_delta):
 	Move()
 	Animation()
 
-	if Input.is_action_just_pressed("click"):
+	if Input.is_action_pressed("click") and $WeaponTimer.is_stopped():
 
 		var target = get_global_mouse_position()
 		var dir    = (target - position).normalized()
@@ -75,6 +75,8 @@ func _physics_process(_delta):
 		bullet.global_position = position + dir * 30
 		add_child(bullet)
 		bullet.rotation = dir.angle()
+
+		$WeaponTimer.start()
 
 func add_score(amount):
 	Score += amount

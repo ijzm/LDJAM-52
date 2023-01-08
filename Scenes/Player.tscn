@@ -187,3 +187,8 @@ anims/move_right = SubResource( 5 )
 anims/move_up = SubResource( 10 )
 anims/move_up_left = SubResource( 9 )
 anims/move_up_right = SubResource( 6 )
+
+[node name="WeaponTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
