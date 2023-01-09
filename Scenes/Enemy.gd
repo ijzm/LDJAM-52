@@ -8,12 +8,21 @@ enum ENEMY_STATE {
 
 export (int) var FORCE_AMOUNT = 200
 export (int) var SPEED = 50
+export (int) var MAX_SPEED = 500
 
 var Player
 var State = ENEMY_STATE.ATTACKING
+var CurrentDirection = Vector2()
 
+var rng = RandomNumberGenerator.new()
+var sounds = []
+var compactor_sounds = []
 
 func _ready():
+	sounds.append(preload("res://assets/sfx/LD52 SFX - Collision 1.wav"))
+	sounds.append(preload("res://assets/sfx/LD52 SFX - Collision 2.wav"))
+	compactor_sounds.append(preload("res://assets/sfx/LD52 SFX - Scrap Pile.wav"))
+	compactor_sounds.append(preload("res://assets/sfx/LD52 SFX - Scrap Pile 2.wav"))
 	Player = get_node("/root/Game/Player")
 
 func Animate(dir):
@@ -67,6 +76,9 @@ func _integrate_forces(state):
 		_:
 			print("ERROR STATE")
 
+	state.linear_velocity = state.linear_velocity.limit_length(MAX_SPEED)
+	CurrentDirection = state.linear_velocity
+
 
 func handle_hit(_body, direction):
 	#var dir = (position - body.position).normalized()
@@ -75,9 +87,23 @@ func handle_hit(_body, direction):
 	apply_impulse(position, direction * FORCE_AMOUNT)
 	$StunnedTimer.start()
 
+	$AudioStreamPlayer.stream = sounds[rng.randi_range(0, len(sounds) - 1)]
+	$AudioStreamPlayer.play()
+
 func handle_compactor():
 	Player.add_score(1)
+	
+	$AudioStreamPlayer.stream = compactor_sounds[rng.randi_range(0, len(compactor_sounds) - 1)]
+	$AudioStreamPlayer.play()
 	queue_free()
 
 func _on_StunnedTimer_timeout():
 	State = ENEMY_STATE.ATTACKING
+
+
+func _on_Enemy_body_entered(body:Node):
+	if body.has_method("handle_hit"):
+		body.handle_hit(self, -CurrentDirection.normalized())
+
+	if body.has_method("handle_hurt"):
+		body.handle_hurt(self, -CurrentDirection.normalized())

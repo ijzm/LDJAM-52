@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/LD_52_Menu.mp3-5f77aea30f0477ebdfa429f6d55f882e.mp3str"
+
+[deps]
+
+source_file="res://assets/music/LD_52_Menu.mp3"
+dest_files=[ "res://.import/LD_52_Menu.mp3-5f77aea30f0477ebdfa429f6d55f882e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

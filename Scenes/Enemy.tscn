@@ -5,7 +5,7 @@
 [ext_resource path="res://BouncyMaterial.tres" type="PhysicsMaterial" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 10.5, 17.5 )
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -159,6 +159,8 @@ tracks/0/keys = {
 mode = 2
 physics_material_override = ExtResource( 3 )
 gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
 linear_damp = 0.0
 script = ExtResource( 2 )
 
@@ -168,6 +170,7 @@ hframes = 4
 vframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -5.5, 4.5 )
 shape = SubResource( 1 )
 
 [node name="StunnedTimer" type="Timer" parent="."]
@@ -185,4 +188,8 @@ anims/move_up = SubResource( 2 )
 anims/move_up_left = SubResource( 9 )
 anims/move_up_right = SubResource( 10 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+max_distance = 500.0
+
+[connection signal="body_entered" from="." to="." method="_on_Enemy_body_entered"]
 [connection signal="timeout" from="StunnedTimer" to="." method="_on_StunnedTimer_timeout"]

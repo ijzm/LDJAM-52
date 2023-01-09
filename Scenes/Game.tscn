@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/GameUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/World.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Spawner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/music/LD_52_Game_Track.mp3" type="AudioStream" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 96, 84 )
 
 [node name="Game" type="Node"]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+autoplay = true
 
 [node name="World" parent="." instance=ExtResource( 2 )]
 position = Vector2( 4, -2 )
@@ -15,4 +23,24 @@ position = Vector2( 4, -2 )
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
 [node name="Spawner" parent="." instance=ExtResource( 4 )]
-position = Vector2( 205, 104 )
+position = Vector2( 1112, -841 )
+
+[node name="Spawner2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1031, -286 )
+
+[node name="Spawner3" parent="." instance=ExtResource( 4 )]
+position = Vector2( -842, 735 )
+
+[node name="Spawner4" parent="." instance=ExtResource( 4 )]
+position = Vector2( -503, -794 )
+
+[node name="Spawner5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 680, 706 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 4, 10 )
+shape = SubResource( 1 )

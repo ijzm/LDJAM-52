@@ -19,4 +19,4 @@ func _on_KillTimer_timeout():
 func _on_Bullet_body_entered(body:Node):
 	if body.has_method("handle_hit"):
 		body.handle_hit(self, direction)
-		queue_free()
+	queue_free()
